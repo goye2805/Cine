@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 
 
@@ -18,10 +18,25 @@ const MoviesContainer = () => {
 
         const response = await fetch(URL)
         const data = await response.json()
-        //console.log(data)
+        console.log(data)
         setMovies(data)
     }
 
+    const searcher = (e) => {
+        setSearch(e.target.value)
+    }
+
+    let resul = []
+
+    if (!search) {
+        resul = movies.results
+    }
+    else {
+
+        resul = movies.results.filter((dato) =>
+            dato.title.toLowerCase().includes(search.toLocaleLowerCase())
+        )
+    }
 
     return (
 
@@ -39,17 +54,17 @@ const MoviesContainer = () => {
                         <h1 className="mb-5 text-xl font-bold">Busca tu pelicula favorita</h1>
 
                         <div className="">
-                            <input type="text" placeholder="Buscar" className="form-control" />
+                            <input value={search} onChange={searcher} type="text" placeholder="Buscar" className="form-control" />
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="d-flex flex-wrap">
-
-                {movies?.results?.map(m =>
-                    <div className="container m-8">
+            <div className="d-flex flex-wrap container p-8">
+                {resul?.map(m =>
+                    <div className="">
                         <strong>{m.title}</strong>
+                        <div> <img src={"https://image.tmdb.org/t/p/original" + m.poster_path} alt="" width="340" height="400" /></div>
                     </div >)}
             </div>
         </div>
