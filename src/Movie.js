@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 
 const Movie = () => {
@@ -9,31 +9,24 @@ const Movie = () => {
         title: "font-medium text-lg text-gray-800 tracking-wider leading-tight uppercase",
         subtitle: "font-medium text-base text-gray-600 tracking-wider leading-normal uppercase",
         text: "font-regular text-sm text-gray-600 tracking-wide leading-normal",
-        highlight: "font-medium text-xs text-gray-700 tracking-wider leading-loose uppercase",
-        button: "font-medium text-xxs tracking-wider leading-normal uppercase select-none",
-        symbol: "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer text-gray-400 border border-gray-400 w-7 h-7 flex items-center justify-center p-0.5",
-        counter: "border border-x-1 border-x-white border-y-gray-400 text-gray-600 h-full text-center w-5 p-0.5"
+        highlight: "font-medium text-xs text-gray-700 tracking-wider leading-loose uppercase"
     }
+
+    const { id } = useParams()
 
 
     const [movies, setMovies] = useState([])
 
 
-    const URL = "https://api.themoviedb.org/3/discover/movie?api_key=cf8aa8acc22358a02eef47f495c7555a"
+    const URL = "https://api.themoviedb.org/3/movie/" + id + "?api_key=cf8aa8acc22358a02eef47f495c7555a"
 
-    const { id } = useParams()
+
 
     const getMovies = async () => {
 
         const response = await fetch(URL)
         const data = await response.json()
-        //console.log(data)
-        data.results.forEach(m => {
-            if (id == m.id) {
-                //console.log(m.title)
-                setMovies(m)
-            }
-        });
+        setMovies(data)
     }
 
     useEffect(() => {
@@ -78,8 +71,11 @@ const Movie = () => {
 
 
                     <hr className="border-gray-200 w-full mt-4" />
-
+                    <Link to="/" className="btn btn-primary">
+                        Volver
+                    </Link>
                 </div>
+
 
             </div>
 
