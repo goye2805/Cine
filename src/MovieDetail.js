@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import Footer from "./Footer"
 
 const MovieDetail = ({ movies }) => {
 
@@ -12,8 +13,7 @@ const MovieDetail = ({ movies }) => {
 
                 <div><Link to={`/movie/${movies.id}`}><img src={URL}
                     alt={""}
-                    width="335" height="400" /></Link>
-
+                    width="200" height="380" /></Link>
                 </div>
             </div >
         </div >
